@@ -16,7 +16,7 @@ defmodule Ragnar.SerieControllerTest do
 
       Enum.each(series, &Repo.insert!(&1))
 
-      response = build_conn
+      response = build_conn()
       |> get("/api/series")
       |> json_response(200)
 

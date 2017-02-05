@@ -9,5 +9,6 @@ defmodule Ragnar.Router do
     pipe_through :api
 
     resources "/series", SerieController, only: [:index]
+    resources "/stocks", StockController, only: [:index]
   end
 end

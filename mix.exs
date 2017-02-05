@@ -19,7 +19,7 @@ defmodule Ragnar.Mixfile do
   def application do
     [mod: {Ragnar, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :timex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,7 +36,7 @@ defmodule Ragnar.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
      {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
-     {:timex, "~> 3.0"},
+     {:timex, "~> 3.1.6"},
      {:cowboy, "~> 1.0"}]
   end
 
