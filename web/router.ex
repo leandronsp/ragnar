@@ -10,5 +10,7 @@ defmodule Ragnar.Router do
 
     resources "/series", SerieController, only: [:index]
     resources "/stocks", StockController, only: [:index]
+    resources "/stocks/:share/calls", CallOptionController, only: [:index]
+    resources "/stocks/:share/puts", PutOptionController, only: [:index]
   end
 end
