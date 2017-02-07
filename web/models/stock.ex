@@ -3,7 +3,7 @@ defmodule Ragnar.Stock do
 
   schema "stocks" do
     field :symbol, :string
-    field :last_update, Ecto.Time
+    field :last_update, Ecto.DateTime
     field :price, :float
     field :variation, :float
     field :vh63, :float

@@ -37,6 +37,8 @@ defmodule Ragnar.Mixfile do
      {:gettext, "~> 0.11"},
      {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
      {:timex, "~> 3.1.6"},
+     {:httpoison, "~> 0.10.0"},
+     {:floki, "~> 0.13.1"},
      {:cowboy, "~> 1.0"}]
   end
 

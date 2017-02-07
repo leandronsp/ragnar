@@ -39,7 +39,7 @@ defmodule Ragnar.StockControllerTest do
         "stocks" => [
           %{
             "symbol" => "PETR4",
-            "last_update" => List.first(all).last_update |> Ecto.Time.to_string,
+            "last_update" => List.first(all).last_update |> Ecto.DateTime.to_iso8601,
             "price" => 15.45,
             "variation" => 3.65,
             "vh63" => 85.01,
@@ -47,7 +47,7 @@ defmodule Ragnar.StockControllerTest do
           },
           %{
             "symbol" => "VALE5",
-            "last_update" => List.last(all).last_update |> Ecto.Time.to_string,
+            "last_update" => List.last(all).last_update |> Ecto.DateTime.to_iso8601,
             "price" => 30.33,
             "variation" => 0.90,
             "vh63" => 23.78,

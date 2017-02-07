@@ -3,7 +3,7 @@ defmodule Ragnar.CallOption do
 
   schema "call_options" do
     field :symbol, :string
-    field :last_update, Ecto.Time
+    field :last_update, Ecto.DateTime
     field :strike, :float
     field :price, :float
     field :trades, :integer

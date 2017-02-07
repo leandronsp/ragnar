@@ -3,7 +3,7 @@ defmodule Ragnar.CallOptionControllerTest do
   alias Ragnar.CallOption
 
   def last_update(hours) do
-    Timex.now |> Timex.shift(hours: hours)
+    Timex.now |> Timex.shift(hours: hours) |> Ecto.DateTime.cast!
   end
 
   describe "index/2" do
@@ -41,7 +41,7 @@ defmodule Ragnar.CallOptionControllerTest do
         "call_options" => [
           %{
             "symbol" => "B26",
-            "last_update" => List.first(all).last_update |> Ecto.Time.to_string,
+            "last_update" => List.first(all).last_update |> Ecto.DateTime.to_iso8601,
             "strike" => 26.00,
             "price" => 1.56,
             "trades" => 100,
@@ -50,7 +50,7 @@ defmodule Ragnar.CallOptionControllerTest do
           },
           %{
             "symbol" => "B28",
-            "last_update" => List.last(all).last_update |> Ecto.Time.to_string,
+            "last_update" => List.last(all).last_update |> Ecto.DateTime.to_iso8601,
             "strike" => 28.00,
             "price" => 1.96,
             "trades" => 50,

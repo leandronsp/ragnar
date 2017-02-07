@@ -4,7 +4,7 @@ defmodule Ragnar.Repo.Migrations.CreateStock do
   def change do
     create table(:stocks) do
       add :symbol, :string
-      add :last_update, :time
+      add :last_update, :utc_datetime
       add :price, :float
       add :variation, :float
       add :vh63, :float
