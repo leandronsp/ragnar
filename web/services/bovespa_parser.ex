@@ -16,18 +16,7 @@ defmodule Ragnar.BovespaParser do
     build_stock_changeset(stock)
   end
 
-  def build_stock_changeset(stock) do
-    _parse_float = fn n ->
-      String.replace(n, ",", ".")
-      |> Float.parse
-      |> elem(0)
-    end
-
-    _parse_date = fn d ->
-      Timex.parse!(d, "%d/%m %H:%M", :strftime)
-      |> Timex.shift(years: Timex.now.year)
-    end
-
+  defp build_stock_changeset(stock) do
     attrs = %{
       symbol: stock.symbol,
       price: parse_float_value(stock.price),
@@ -40,19 +29,19 @@ defmodule Ragnar.BovespaParser do
     Stock.changeset(%Stock{}, attrs)
   end
 
-  def parse_raw_value(value) when value == nil, do: value
+  defp parse_raw_value(value) when value == nil, do: value
 
-  def parse_raw_value(value) do
+  defp parse_raw_value(value) do
     Floki.text(value)
   end
 
-  def parse_float_value(value) do
+  defp parse_float_value(value) do
     String.replace(value, ",", ".")
     |> Float.parse
     |> elem(0)
   end
 
-  def parse_date_value(value) do
+  defp parse_date_value(value) do
     Timex.parse!(value, "%d/%m %H:%M", :strftime)
     |> Timex.shift(years: Timex.now.year)
   end
