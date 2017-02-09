@@ -4,24 +4,34 @@ defmodule Ragnar.BovespaCallOptionsParserTest do
 
   test "parses call options" do
     {:ok, html} = File.read("test/fixtures/html/call_options.html")
-    #series = Parser.parse_many(html)
 
-    #assert length(series) == 3
+    stock_changeset = Ragnar.BovespaStockParser.parse_single(html)
+    assert stock_changeset.valid?
 
-    #changeset = Enum.at(series, 0)
-    #assert changeset.valid?
-    #assert changeset.params["symbol"]     == "B"
-    #assert changeset.params["expires_at"] == ~D[2017-02-20]
+    options = Parser.parse_many(html, stock_changeset.changes)
 
-    #changeset = Enum.at(series, 1)
-    #assert changeset.valid?
-    #assert changeset.params["symbol"]     == "C"
-    #assert changeset.params["expires_at"] == ~D[2017-03-20]
+    assert length(options) == 106
+    Enum.each(options, fn changeset -> assert changeset.valid? end)
 
-    #changeset = Enum.at(series, 2)
-    #assert changeset.valid?
-    #assert changeset.params["symbol"]     == "D"
-    #assert changeset.params["expires_at"] == ~D[2017-04-17]
+    model = List.first(options).changes
+
+    assert model.symbol       == "B10"
+    assert model.last_update  == stock_changeset.changes.last_update
+    assert model.strike       == 6.2
+    assert model.price        == 9.1
+    assert model.serie_symbol == "B"
+    assert model.stock_symbol == "PETR4"
+    assert model.trades       == 24
+
+    model = List.last(options).changes
+
+    assert model.symbol       == "D26"
+    assert model.last_update  == stock_changeset.changes.last_update
+    assert model.strike       == 26.0
+    assert model.price        == 0.04
+    assert model.serie_symbol == "D"
+    assert model.stock_symbol == "PETR4"
+    assert model.trades       == 4
   end
 
 end

@@ -14,6 +14,11 @@ defmodule Ragnar.CommonParser do
         |> elem(0)
       end
 
+      def parse_int_value(value) do
+        Integer.parse(value)
+        |> elem(0)
+      end
+
       def parse_date_value(value, format \\ "%d/%m/%Y", options \\ %{}) do
         years_to_shift = if options[:shift_to_current_year], do: Timex.now.year, else: 0
         [date, _]      = String.split(value, "\s\n")

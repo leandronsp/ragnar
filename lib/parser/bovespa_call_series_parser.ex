@@ -9,24 +9,21 @@ defmodule Ragnar.BovespaCallSeriesParser do
 
   ### Private functions
 
-  def parse_single(row) do
+  defp parse_single(row) do
     cells = Floki.find(row, "td")
-
-    serie = %Serie{
+    attrs = %{
       symbol:     Enum.at(cells, 0) |> parse_raw_value,
       expires_at: Enum.at(cells, 8) |> parse_raw_value
     }
 
-    build_serie_changeset(serie)
+    build_changeset(attrs)
   end
 
-  defp build_serie_changeset(serie) do
-    attrs = %{
-      symbol: serie.symbol,
-      expires_at: parse_date_value(serie.expires_at)
-    }
-
-    Serie.changeset(%Serie{}, attrs)
+  defp build_changeset(attrs) do
+    Serie.changeset(%Serie{}, %{
+      symbol: attrs.symbol,
+      expires_at: parse_date_value(attrs.expires_at)
+    })
   end
 
 end

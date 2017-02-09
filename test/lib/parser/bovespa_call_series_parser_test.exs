@@ -10,18 +10,18 @@ defmodule Ragnar.BovespaCallSeriesParserTest do
 
     changeset = Enum.at(series, 0)
     assert changeset.valid?
-    assert changeset.params["symbol"]     == "B"
-    assert changeset.params["expires_at"] == ~D[2017-02-20]
+    assert changeset.changes.symbol     == "B"
+    assert changeset.changes.expires_at == Ecto.Date.cast!(~D[2017-02-20])
 
     changeset = Enum.at(series, 1)
     assert changeset.valid?
-    assert changeset.params["symbol"]     == "C"
-    assert changeset.params["expires_at"] == ~D[2017-03-20]
+    assert changeset.changes.symbol     == "C"
+    assert changeset.changes.expires_at == Ecto.Date.cast!(~D[2017-03-20])
 
     changeset = Enum.at(series, 2)
     assert changeset.valid?
-    assert changeset.params["symbol"]     == "D"
-    assert changeset.params["expires_at"] == ~D[2017-04-17]
+    assert changeset.changes.symbol     == "D"
+    assert changeset.changes.expires_at == Ecto.Date.cast!(~D[2017-04-17])
   end
 
 end
