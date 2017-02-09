@@ -24,7 +24,7 @@ config :logger, :console,
 
 #config :quantum, ragnar: [
 #  cron: [
-#    "* * * * *": {Ragnar.BovespaFetcher, :fetch!}
+#    "* * * * *": {Ragnar.BovespaFetcher, :fetch_many!}
 #  ]
 #]
 
