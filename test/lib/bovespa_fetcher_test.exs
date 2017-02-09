@@ -7,30 +7,34 @@ defmodule Ragnar.BovespaFetcherTest do
 
   import Mock
 
-  test "#fetch_single!" do
-    {:ok, calls_html} = File.read("test/fixtures/html/call_options.html")
-    {:ok, puts_html}  = File.read("test/fixtures/html/put_options.html")
+  describe "#fetch_single!" do
+    test "fetches stock, series and options given a share" do
+      {:ok, calls_html} = File.read("test/fixtures/html/call_options.html")
+      {:ok, puts_html}  = File.read("test/fixtures/html/put_options.html")
 
-    fetch_calls = {Client, [], [fetch_call_options!: fn(_) -> calls_html end]}
-    fetch_puts  = {Client, [], [fetch_put_options!: fn(_) -> puts_html end]}
+      fetch_calls = {Client, [], [fetch_call_options!: fn(_) -> calls_html end]}
+      fetch_puts  = {Client, [], [fetch_put_options!: fn(_) -> puts_html end]}
 
-    with_mocks([fetch_calls, fetch_puts]) do
-      Fetcher.fetch_single!("PETR4")
-      assert called Client.fetch_call_options!("PETR4")
-      assert called Client.fetch_put_options!("PETR4")
+      with_mocks([fetch_calls, fetch_puts]) do
+        Fetcher.fetch_single!("PETR4")
 
-      stocks = Repo.all(Stock)
-      assert length(stocks) == 1
+        assert called Client.fetch_call_options!("PETR4")
+        assert called Client.fetch_put_options!("PETR4")
 
-      series = Repo.all(Serie)
-      assert length(series) == 6
+        assert Repo.all(Stock)      |> length == 1
+        assert Repo.all(Serie)      |> length == 6
+        assert Repo.all(CallOption) |> length == 106
+        assert Repo.all(PutOption)  |> length == 41
 
-      options = Repo.all(CallOption)
-      assert length(options) == 106
+        #### Fetches twice but does not duplicate rows!
+        Fetcher.fetch_single!("PETR4")
 
-      options = Repo.all(PutOption)
-      assert length(options) == 41
+        assert Repo.all(Stock)      |> length == 1
+        assert Repo.all(Serie)      |> length == 6
+        assert Repo.all(CallOption) |> length == 106
+        assert Repo.all(PutOption)  |> length == 41
+      end
     end
-  end
 
+  end
 end

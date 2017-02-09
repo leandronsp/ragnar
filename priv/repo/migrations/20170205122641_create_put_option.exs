@@ -3,7 +3,7 @@ defmodule Ragnar.Repo.Migrations.CreatePutOption do
 
   def change do
     create table(:put_options) do
-      add :symbol, :string
+      add :symbol, :string, primary_key: true
       add :last_update, :utc_datetime
       add :strike, :float
       add :price, :float

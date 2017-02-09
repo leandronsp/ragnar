@@ -3,7 +3,7 @@ defmodule Ragnar.Repo.Migrations.CreateStock do
 
   def change do
     create table(:stocks) do
-      add :symbol, :string
+      add :symbol, :string, primary_key: true
       add :last_update, :utc_datetime
       add :price, :float
       add :variation, :float

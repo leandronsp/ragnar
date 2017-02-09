@@ -3,7 +3,7 @@ defmodule Ragnar.Repo.Migrations.CreateSerie do
 
   def change do
     create table(:series) do
-      add :symbol, :string
+      add :symbol, :string, primary_key: true
       add :expires_at, :date
 
       timestamps()
