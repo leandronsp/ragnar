@@ -3,12 +3,10 @@ defmodule Ragnar.CallOptionController do
   alias Ragnar.{Repo, CallOption}
 
   def index(conn, params) do
-    call_options = Repo.all(
-      CallOption,
-      stock_symbol: params["share"],
-      serie_symbol: params["serie"]
-    )
+    results = CallOption
+    |> CallOption.query_by_share_and_serie(params["share"], params["serie"])
+    |> Repo.all
 
-    render conn, "call_options.json", call_options: call_options
+    render conn, "call_options.json", call_options: results
   end
 end

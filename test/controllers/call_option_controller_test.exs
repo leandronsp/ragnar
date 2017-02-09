@@ -10,6 +10,24 @@ defmodule Ragnar.CallOptionControllerTest do
     test "responds with all call options given a share and serie" do
       call_options = [
         CallOption.changeset(%CallOption{}, %{
+          symbol: "C26",
+          last_update: last_update(-2),
+          strike: 26.00,
+          price: 1.56,
+          trades: 100,
+          serie_symbol: "C",
+          stock_symbol: "PETR4"
+        }),
+        CallOption.changeset(%CallOption{}, %{
+          symbol: "B26",
+          last_update: last_update(-2),
+          strike: 26.00,
+          price: 1.56,
+          trades: 100,
+          serie_symbol: "B",
+          stock_symbol: "VALE5"
+        }),
+        CallOption.changeset(%CallOption{}, %{
           symbol: "B26",
           last_update: last_update(-2),
           strike: 26.00,
@@ -35,7 +53,8 @@ defmodule Ragnar.CallOptionControllerTest do
       |> get("/api/stocks/PETR4/calls?serie=B")
       |> json_response(200)
 
-      all = Repo.all(CallOption)
+      query = CallOption.query_by_share_and_serie(CallOption, "PETR4", "B")
+      all = Repo.all(query)
 
       expected = %{
         "call_options" => [

@@ -10,6 +10,15 @@ defmodule Ragnar.PutOptionControllerTest do
     test "responds with all put options given a share and serie" do
       put_options = [
         PutOption.changeset(%PutOption{}, %{
+          symbol: "C26",
+          last_update: last_update(-2),
+          strike: 26.00,
+          price: 1.56,
+          trades: 100,
+          serie_symbol: "C",
+          stock_symbol: "PETR4"
+        }),
+        PutOption.changeset(%PutOption{}, %{
           symbol: "B26",
           last_update: last_update(-2),
           strike: 26.00,
@@ -35,7 +44,8 @@ defmodule Ragnar.PutOptionControllerTest do
       |> get("/api/stocks/PETR4/puts?serie=B")
       |> json_response(200)
 
-      all = Repo.all(PutOption)
+      query = PutOption.query_by_share_and_serie(PutOption, "PETR4", "B")
+      all = Repo.all(query)
 
       expected = %{
         "put_options" => [

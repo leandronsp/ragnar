@@ -3,12 +3,10 @@ defmodule Ragnar.PutOptionController do
   alias Ragnar.{Repo, PutOption}
 
   def index(conn, params) do
-    put_options = Repo.all(
-      PutOption,
-      stock_symbol: params["share"],
-      serie_symbol: params["serie"]
-    )
+    results = PutOption
+    |> PutOption.query_by_share_and_serie(params["share"], params["serie"])
+    |> Repo.all
 
-    render conn, "put_options.json", put_options: put_options
+    render conn, "put_options.json", put_options: results
   end
 end

@@ -1,5 +1,6 @@
 defmodule Ragnar.PutOption do
   use Ragnar.Web, :model
+  import Ecto.Query, only: [from: 2]
 
   schema "put_options" do
     field :symbol, :string
@@ -20,5 +21,9 @@ defmodule Ragnar.PutOption do
     struct
     |> cast(params, [:symbol, :last_update, :strike, :price, :trades, :serie_symbol, :stock_symbol])
     |> validate_required([:symbol, :last_update, :strike, :price, :trades, :serie_symbol, :stock_symbol])
+  end
+
+  def query_by_share_and_serie(query, share, serie) do
+    from co in query, where: co.stock_symbol == ^share and co.serie_symbol == ^serie
   end
 end
