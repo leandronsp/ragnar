@@ -5,7 +5,7 @@ defmodule Ragnar.BovespaFetcher do
   alias Ragnar.BovespaClient, as: Client
 
   def fetch_many! do
-    shares = ["PETR4", "VALE5"]
+    shares = ["PETR4", "VALE5", "ITUB4", "BVMF3", "BBDC4", "GGBR4", "CSNA3", "ITSA4", "BBAS3", "ABEV3", "CIEL3"]
     Enum.each(shares, &fetch_single!(&1))
   end
 
