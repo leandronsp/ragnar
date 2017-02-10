@@ -1,8 +1,15 @@
 require Logger
 
 defmodule Ragnar.BovespaFetcher do
-  alias Ragnar.Repo
-  alias Ragnar.BovespaClient, as: Client
+  alias Ragnar.{Stock, Serie, CallOption, PutOption}
+
+  alias Ragnar.BovespaClient,            as: Client
+  alias Ragnar.RepoDecorator,            as: RepoDecorator
+  alias Ragnar.BovespaStockParser,       as: StockParser
+  alias Ragnar.BovespaCallSeriesParser,  as: CallSeriesParser
+  alias Ragnar.BovespaPutSeriesParser,   as: PutSeriesParser
+  alias Ragnar.BovespaCallOptionsParser, as: CallOptionsParser
+  alias Ragnar.BovespaPutOptionsParser,  as: PutOptionsParser
 
   def fetch_many! do
     shares = ["PETR4", "VALE5", "ITUB4", "BVMF3", "BBDC4", "GGBR4", "CSNA3", "ITSA4", "BBAS3", "ABEV3", "CIEL3"]
@@ -13,48 +20,42 @@ defmodule Ragnar.BovespaFetcher do
     Logger.info("Fetching for #{stock_symbol}...")
 
     html  = Client.fetch_call_options!(stock_symbol)
-    stock = fetch_stock!(html)
+    stock = parse_and_save_stock!(html)
 
-    fetch_call_series!(html)
-    fetch_call_options!(html, stock)
+    parse_and_save_call_series!(html)
+    parse_and_save_call_options!(html, stock)
 
     html = Client.fetch_put_options!(stock_symbol)
 
-    fetch_put_series!(html)
-    fetch_put_options!(html, stock)
+    parse_and_save_put_series!(html)
+    parse_and_save_put_options!(html, stock)
   end
 
   #### Private functions
 
-  defp fetch_stock!(html) do
-    Ragnar.BovespaStockParser.parse_single(html)
-    |> insert_or_update!(Ragnar.Stock)
+  defp parse_and_save_stock!(html) do
+    StockParser.parse_single(html)
+    |> (&RepoDecorator.insert_or_update!(Stock, &1)).()
   end
 
-  defp fetch_call_series!(html) do
-    Ragnar.BovespaCallSeriesParser.parse_many(html)
-    |> Enum.each(&insert_or_update!(&1, Ragnar.Serie))
+  defp parse_and_save_call_series!(html) do
+    CallSeriesParser.parse_many(html)
+    |> Enum.each(&RepoDecorator.insert_or_update!(Serie, &1))
   end
 
-  defp fetch_call_options!(html, stock) do
-    Ragnar.BovespaCallOptionsParser.parse_many(html, stock)
-    |> Enum.each(&insert_or_update!(&1, Ragnar.CallOption))
+  defp parse_and_save_call_options!(html, stock) do
+    CallOptionsParser.parse_many(html, stock)
+    |> Enum.each(&RepoDecorator.insert_or_update!(CallOption, &1))
   end
 
-  defp fetch_put_options!(html, stock) do
-    Ragnar.BovespaPutOptionsParser.parse_many(html, stock)
-    |> Enum.each(&insert_or_update!(&1, Ragnar.PutOption))
+  defp parse_and_save_put_options!(html, stock) do
+    PutOptionsParser.parse_many(html, stock)
+    |> Enum.each(&RepoDecorator.insert_or_update!(PutOption, &1))
   end
 
-  defp fetch_put_series!(html) do
-    Ragnar.BovespaPutSeriesParser.parse_many(html)
-    |> Enum.each(&insert_or_update!(&1, Ragnar.Serie))
-  end
-
-  defp insert_or_update!(changeset, struct) do
-    struct
-    |> Repo.get_by(symbol: changeset.changes.symbol) || changeset
-    |> Repo.insert_or_update!
+  defp parse_and_save_put_series!(html) do
+    PutSeriesParser.parse_many(html)
+    |> Enum.each(&RepoDecorator.insert_or_update!(Serie, &1))
   end
 
 end
