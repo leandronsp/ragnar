@@ -7,17 +7,17 @@ defmodule Ragnar.RepoDecoratorTest do
   describe "#insert_or_update!" do
     test "inserts newly data" do
       Stock.changeset(%Stock{}, @stock_attrs)
-      |> (&RepoDecorator.insert_or_update!(Stock, &1)).()
+      |> RepoDecorator.insert_or_update!
 
       assert Repo.all(Stock) |> length == 1
     end
 
     test "updates existent data" do
       Stock.changeset(%Stock{}, @stock_attrs)
-      |> (&RepoDecorator.insert_or_update!(Stock, &1)).()
+      |> RepoDecorator.insert_or_update!
 
-      Stock.changeset(%Stock{}, Map.merge(@stock_attrs, %{price: 16.92}))
-      |> (&RepoDecorator.insert_or_update!(Stock, &1)).()
+      Stock.changeset(%Stock{}, %{@stock_attrs | price: 16.92})
+      |> RepoDecorator.insert_or_update!
 
       assert Repo.all(Stock) |> length == 1
 

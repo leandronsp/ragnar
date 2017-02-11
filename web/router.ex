@@ -8,9 +8,12 @@ defmodule Ragnar.Router do
   scope "/api", Ragnar do
     pipe_through :api
 
-    resources "/series", SerieController, only: [:index]
-    resources "/stocks", StockController, only: [:index]
-    resources "/stocks/:share/calls", CallOptionController, only: [:index]
-    resources "/stocks/:share/puts", PutOptionController, only: [:index]
+    get "/series", SerieController, :index
+    get "/stocks", StockController, :index
+
+    get "/stocks/:share/calls",           CallOptionController, :index
+    get "/stocks/:share/calls/evaluated", CallOptionController, :evaluated
+
+    get "/stocks/:share/puts", PutOptionController, :index
   end
 end

@@ -83,4 +83,12 @@ defmodule Ragnar.CallOptionControllerTest do
     end
   end
 
+  describe "calls_for_operation" do
+    test "calculates and returns the best options to do operation given a capital" do
+      response = build_conn()
+      |> get("/api/stocks/PETR4/calls/evaluated?capital=10000&serie=B")
+      |> json_response(200)
+    end
+  end
+
 end

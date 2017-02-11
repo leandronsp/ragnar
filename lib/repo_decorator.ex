@@ -1,8 +1,8 @@
 defmodule Ragnar.RepoDecorator do
   alias Ragnar.Repo
 
-  def insert_or_update!(struct, changeset) do
-    case Repo.get_by(struct, symbol: changeset.changes.symbol) do
+  def insert_or_update!(changeset) do
+    case Repo.get_by(changeset.data.__struct__, symbol: changeset.changes.symbol) do
       nil   -> Repo.insert!(changeset)
       found ->
         Ecto.Changeset.change(found, changeset.changes)

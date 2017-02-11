@@ -37,31 +37,31 @@ defmodule Ragnar.BovespaFetcher do
 
   defp parse_and_save_stock!(html) do
     StockParser.parse_single(html)
-    |> (&RepoDecorator.insert_or_update!(Stock, &1)).()
+    |> RepoDecorator.insert_or_update!
     html
   end
 
   defp parse_and_save_series!(html, :call) do
     CallSeriesParser.parse_many(html)
-    |> Enum.each(&RepoDecorator.insert_or_update!(Serie, &1))
+    |> Enum.each(&RepoDecorator.insert_or_update!(&1))
     html
   end
 
   defp parse_and_save_series!(html, :put) do
     PutSeriesParser.parse_many(html)
-    |> Enum.each(&RepoDecorator.insert_or_update!(Serie, &1))
+    |> Enum.each(&RepoDecorator.insert_or_update!(&1))
     html
   end
 
   defp parse_and_save_options!(html, :call) do
     CallOptionsParser.parse_many(html)
-    |> Enum.each(&RepoDecorator.insert_or_update!(CallOption, &1))
+    |> Enum.each(&RepoDecorator.insert_or_update!(&1))
     html
   end
 
   defp parse_and_save_options!(html, :put) do
     PutOptionsParser.parse_many(html)
-    |> Enum.each(&RepoDecorator.insert_or_update!(PutOption, &1))
+    |> Enum.each(&RepoDecorator.insert_or_update!(&1))
     html
   end
 
