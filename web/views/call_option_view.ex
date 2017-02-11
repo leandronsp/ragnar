@@ -2,11 +2,11 @@ defmodule Ragnar.CallOptionView do
   use Ragnar.Web, :view
 
   def render("call_options.json", %{call_options: call_options}) do
-    %{call_options: render_many(call_options, Ragnar.CallOptionView, "call_option.json")}
+    render_many(call_options, Ragnar.CallOptionView, "call_option.json")
   end
 
   def render("call_options_evaluated.json", %{call_options: call_options}) do
-    %{call_options: render_many(call_options, Ragnar.CallOptionView, "call_option_evaluated.json")}
+    render_many(call_options, Ragnar.CallOptionView, "call_option_evaluated.json")
   end
 
   def render("call_option.json", %{call_option: call_option}) do

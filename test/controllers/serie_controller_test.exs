@@ -20,13 +20,11 @@ defmodule Ragnar.SerieControllerTest do
       |> get("/api/series")
       |> json_response(200)
 
-      expected = %{
-        "series" => [
-          %{ "symbol" => "A", "expires_at" => expires_in(10) |> Date.to_string },
-          %{ "symbol" => "B", "expires_at" => expires_in(40) |> Date.to_string },
-          %{ "symbol" => "C", "expires_at" => expires_in(70) |> Date.to_string }
-        ]
-      }
+      expected = [
+        %{ "symbol" => "A", "expires_at" => expires_in(10) |> Date.to_string },
+        %{ "symbol" => "B", "expires_at" => expires_in(40) |> Date.to_string },
+        %{ "symbol" => "C", "expires_at" => expires_in(70) |> Date.to_string }
+      ]
 
       assert response == expected
     end

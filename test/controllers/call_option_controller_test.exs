@@ -56,28 +56,26 @@ defmodule Ragnar.CallOptionControllerTest do
       query = CallOption.query_by_share_and_serie(CallOption, "PETR4", "B")
       all = Repo.all(query)
 
-      expected = %{
-        "call_options" => [
-          %{
-            "symbol" => "B26",
-            "last_update" => List.first(all).last_update |> Ecto.DateTime.to_iso8601,
-            "strike" => 26.00,
-            "price" => 1.56,
-            "trades" => 100,
-            "serie_symbol" => "B",
-            "stock_symbol" => "PETR4"
-          },
-          %{
-            "symbol" => "B28",
-            "last_update" => List.last(all).last_update |> Ecto.DateTime.to_iso8601,
-            "strike" => 28.00,
-            "price" => 1.96,
-            "trades" => 50,
-            "serie_symbol" => "B",
-            "stock_symbol" => "PETR4"
-          }
-        ]
-      }
+      expected = [
+        %{
+          "symbol" => "B26",
+          "last_update" => List.first(all).last_update |> Ecto.DateTime.to_iso8601,
+          "strike" => 26.00,
+          "price" => 1.56,
+          "trades" => 100,
+          "serie_symbol" => "B",
+          "stock_symbol" => "PETR4"
+        },
+        %{
+          "symbol" => "B28",
+          "last_update" => List.last(all).last_update |> Ecto.DateTime.to_iso8601,
+          "strike" => 28.00,
+          "price" => 1.96,
+          "trades" => 50,
+          "serie_symbol" => "B",
+          "stock_symbol" => "PETR4"
+        }
+      ]
 
       assert response == expected
     end
@@ -100,15 +98,13 @@ defmodule Ragnar.CallOptionControllerTest do
 
       call_option = Repo.all(CallOption) |> Enum.at(0)
 
-      assert response == %{
-        "call_options" => [
-          %{"annual_rate" => 18.45, "balance" => 13.61, "last_update" => Ecto.DateTime.to_iso8601(call_option.last_update),
-          "net_profit" => 1_819.00, "price" => 4.45, "quantity" => 3_200, "capital" => 100_000,
-          "rate" => 1.82, "real_capital" => 99_936.00, "serie_symbol" => "C",
-          "stock_symbol" => "SHARE", "stop_loss" => 26.98, "strike" => 27.48, "rating" => "-",
-          "symbol" => "C27", "trades" => 31, "remaining_days" => 36, "stock_price" => 31.23}
-        ]
-      }
+      assert response == [
+        %{"annual_rate" => 18.45, "balance" => 13.61, "last_update" => Ecto.DateTime.to_iso8601(call_option.last_update),
+        "net_profit" => 1_819.00, "price" => 4.45, "quantity" => 3_200, "capital" => 100_000,
+        "rate" => 1.82, "real_capital" => 99_936.00, "serie_symbol" => "C",
+        "stock_symbol" => "SHARE", "stop_loss" => 26.98, "strike" => 27.48, "rating" => "-",
+        "symbol" => "C27", "trades" => 31, "remaining_days" => 36, "stock_price" => 31.23}
+      ]
     end
   end
 
