@@ -29,6 +29,8 @@ defmodule Ragnar.BovespaFetcher do
     |> Client.fetch_options!(:put)
     |> parse_and_save_series!(:put)
     |> parse_and_save_options!(:put)
+
+    :ok
   end
 
   #### Private functions
