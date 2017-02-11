@@ -20,13 +20,13 @@ defmodule Ragnar.BovespaFetcher do
     Logger.info("Fetching for #{share}...")
 
     share
-    |> Client.fetch_call_options!
+    |> Client.fetch_options!(:call)
     |> parse_and_save_stock!
     |> parse_and_save_call_series!
     |> parse_and_save_call_options!
 
     share
-    |> Client.fetch_put_options!
+    |> Client.fetch_options!(:put)
     |> parse_and_save_put_series!
     |> parse_and_save_put_options!
   end
