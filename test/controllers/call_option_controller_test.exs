@@ -105,7 +105,7 @@ defmodule Ragnar.CallOptionControllerTest do
           %{"annual_rate" => 18.45, "balance" => 13.61, "last_update" => Ecto.DateTime.to_iso8601(call_option.last_update),
           "net_profit" => 1_819.00, "price" => 4.45, "quantity" => 3_200,
           "rate" => 1.82, "real_capital" => 99_936.00, "serie_symbol" => "C",
-          "stock_symbol" => "SHARE", "stop_loss" => 26.98, "strike" => 27.48,
+          "stock_symbol" => "SHARE", "stop_loss" => 26.98, "strike" => 27.48, "rating" => "-",
           "symbol" => "C27", "trades" => 31, "remaining_days" => 36, "stock_price" => 31.23}
         ]
       }

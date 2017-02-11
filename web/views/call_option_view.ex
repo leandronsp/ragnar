@@ -38,7 +38,8 @@ defmodule Ragnar.CallOptionView do
       balance: call_option.balance,
       stop_loss: call_option.stop_loss,
       real_capital: call_option.real_capital,
-      remaining_days: call_option.remaining_days
+      remaining_days: call_option.remaining_days,
+      rating: call_option.rating
     }
   end
 end
