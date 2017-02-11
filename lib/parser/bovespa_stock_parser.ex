@@ -1,4 +1,3 @@
-require IEx
 defmodule Ragnar.BovespaStockParser do
   alias Ragnar.Stock
   use Ragnar.CommonParser

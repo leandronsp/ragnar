@@ -5,10 +5,7 @@ defmodule Ragnar.BovespaCallOptionsParserTest do
   test "parses call options" do
     {:ok, html} = File.read("test/fixtures/html/call_options.html")
 
-    stock_changeset = Ragnar.BovespaStockParser.parse_single(html)
-    assert stock_changeset.valid?
-
-    options = Parser.parse_many(html, stock_changeset.changes)
+    options = Parser.parse_many(html)
 
     assert length(options) == 106
     Enum.each(options, fn changeset -> assert changeset.valid? end)
@@ -16,7 +13,7 @@ defmodule Ragnar.BovespaCallOptionsParserTest do
     model = List.first(options).changes
 
     assert model.symbol       == "B10"
-    assert model.last_update  == stock_changeset.changes.last_update
+    assert model.last_update  == ~N[2017-02-03 18:12:00] |> Ecto.DateTime.cast!
     assert model.strike       == 6.2
     assert model.price        == 9.1
     assert model.serie_symbol == "B"
@@ -26,7 +23,7 @@ defmodule Ragnar.BovespaCallOptionsParserTest do
     model = List.last(options).changes
 
     assert model.symbol       == "D26"
-    assert model.last_update  == stock_changeset.changes.last_update
+    assert model.last_update  == ~N[2017-02-03 18:12:00] |> Ecto.DateTime.cast!
     assert model.strike       == 26.0
     assert model.price        == 0.04
     assert model.serie_symbol == "D"

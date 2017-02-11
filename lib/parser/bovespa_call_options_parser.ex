@@ -1,10 +1,13 @@
 defmodule Ragnar.BovespaCallOptionsParser do
   alias Ragnar.CallOption
+  alias Ragnar.BovespaStockParser, as: StockParser
+
   use Ragnar.CommonParser
 
-  def parse_many(html, stock) do
-    rows = Floki.find(html, "table.gregas tbody tr")
-    Enum.map(rows, &parse_single(&1, stock))
+  def parse_many(html) do
+    stock = StockParser.parse_single(html)
+    Floki.find(html, "table.gregas tbody tr")
+    |> Enum.map(&parse_single(&1, stock))
   end
 
   ### Private functions
@@ -16,9 +19,9 @@ defmodule Ragnar.BovespaCallOptionsParser do
       strike:       Enum.at(cells, 1) |> parse_raw_value,
       price:        Enum.at(cells, 2) |> parse_raw_value,
       trades:       Enum.at(cells, 3) |> parse_raw_value,
-      last_update:  stock.last_update,
-      stock_symbol: stock.symbol,
-      serie_symbol: Enum.at(cells, 0) |> parse_raw_value |> String.at(0)
+      serie_symbol: Enum.at(cells, 0) |> parse_raw_value |> String.at(0),
+      stock_symbol: stock.changes.symbol,
+      last_update:  stock.changes.last_update
     }
 
     build_changeset(attrs)
