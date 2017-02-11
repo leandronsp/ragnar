@@ -20,6 +20,7 @@ defmodule Ragnar.OptionsEvaluator do
       annual_rate: CallOptionsCalculator.annual_rate(capital, stock, option, serie),
       balance: CallOptionsCalculator.balance(stock, option),
       remaining_days: CallOptionsCalculator.remaining_days(serie),
+      capital: capital,
       stock_price: stock.price,
       rating: "-"
     })
