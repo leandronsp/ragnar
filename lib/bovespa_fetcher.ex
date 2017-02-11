@@ -22,13 +22,13 @@ defmodule Ragnar.BovespaFetcher do
     share
     |> Client.fetch_options!(:call)
     |> parse_and_save_stock!
-    |> parse_and_save_call_series!
-    |> parse_and_save_call_options!
+    |> parse_and_save_series!(:call)
+    |> parse_and_save_options!(:call)
 
     share
     |> Client.fetch_options!(:put)
-    |> parse_and_save_put_series!
-    |> parse_and_save_put_options!
+    |> parse_and_save_series!(:put)
+    |> parse_and_save_options!(:put)
   end
 
   #### Private functions
@@ -39,27 +39,27 @@ defmodule Ragnar.BovespaFetcher do
     html
   end
 
-  defp parse_and_save_call_series!(html) do
+  defp parse_and_save_series!(html, :call) do
     CallSeriesParser.parse_many(html)
     |> Enum.each(&RepoDecorator.insert_or_update!(Serie, &1))
     html
   end
 
-  defp parse_and_save_call_options!(html) do
+  defp parse_and_save_series!(html, :put) do
+    PutSeriesParser.parse_many(html)
+    |> Enum.each(&RepoDecorator.insert_or_update!(Serie, &1))
+    html
+  end
+
+  defp parse_and_save_options!(html, :call) do
     CallOptionsParser.parse_many(html)
     |> Enum.each(&RepoDecorator.insert_or_update!(CallOption, &1))
     html
   end
 
-  defp parse_and_save_put_options!(html) do
+  defp parse_and_save_options!(html, :put) do
     PutOptionsParser.parse_many(html)
     |> Enum.each(&RepoDecorator.insert_or_update!(PutOption, &1))
-    html
-  end
-
-  defp parse_and_save_put_series!(html) do
-    PutSeriesParser.parse_many(html)
-    |> Enum.each(&RepoDecorator.insert_or_update!(Serie, &1))
     html
   end
 
