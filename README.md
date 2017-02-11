@@ -13,8 +13,8 @@ Some examples of API endpoints:
 	GET /stocks/{share}/calls?serie=B
 	GET /stocks/{share}/puts?serie=P
 
-	GET /stocks/{share}/calls_for_operation?capital=10000&serie=A
-	GET /stocks/{share}/puts_for_operation?capital=10000&serie=A
+	GET /stocks/{share}/calls/evaluated?capital=10000&serie=A
+	(soon) GET /stocks/{share}/puts/evaluated?capital=10000&serie=A
 
 
 ### License
