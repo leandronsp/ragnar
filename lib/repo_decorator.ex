@@ -10,4 +10,9 @@ defmodule Ragnar.RepoDecorator do
     end
   end
 
+  def convert_to_map(struct) do
+    Map.keys(struct) -- [:__meta__, :__struct__]
+    |> (&Map.take(struct, &1)).()
+  end
+
 end

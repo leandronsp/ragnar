@@ -2,9 +2,9 @@ defmodule Ragnar.RepoDecoratorTest do
   use Ragnar.ConnCase
   alias Ragnar.{Repo, RepoDecorator, Stock}
 
-  @stock_attrs %{ symbol: "PETR4", last_update: Timex.now, price: 15.45, variation: 3.65, vh63: 85.01, vh63_ibov: 34.00 }
+  @stock_attrs %{ symbol: "PETR4", last_update: Timex.now |> Ecto.DateTime.cast!, price: 15.45, variation: 3.65, vh63: 85.01, vh63_ibov: 34.00 }
 
-  describe "#insert_or_update!" do
+  describe "insert_or_update!/1" do
     test "inserts newly data" do
       Stock.changeset(%Stock{}, @stock_attrs)
       |> RepoDecorator.insert_or_update!

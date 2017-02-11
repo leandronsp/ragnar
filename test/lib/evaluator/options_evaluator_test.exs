@@ -1,13 +1,11 @@
 defmodule Ragnar.OptionsEvaluatorTest do
   use Ragnar.ConnCase
 
-  alias Ragnar.{Stock, CallOption, PuOption, Serie}
-  alias Ragnar.OptionsEvaluator
+  alias Ragnar.{Stock, CallOption, Serie}
+  alias Ragnar.OptionsEvaluator, as: Evaluator
 
   test "evaluates call options" do
-    capital = 100_000
-
-    %{expires_at: Timex.today |> Timex.shift(days: 8)}
+    %{expires_at: Timex.today |> Timex.shift(days: 36)}
     |> build_serie
 
     %{price: 31.23, variation: 6.55, vh63: 59.04, vh63_ibov: 24.93}
@@ -16,16 +14,28 @@ defmodule Ragnar.OptionsEvaluatorTest do
     %{symbol: "C27", strike: 27.48, price: 4.45, trades: 31}
     |> build_call_option
 
-    %{symbol: "C30", strike: 28.48, price: 3.65, trades: 19}
-    |> build_call_option
+    capital         = 100_000
+    stock           = Repo.all(Stock) |> Enum.at(0)
+    serie           = Repo.all(Serie) |> Enum.at(0)
+    call_options    = Repo.all(CallOption)
+    evaluated_calls = Evaluator.evaluate_calls(call_options, stock, serie, capital)
 
-    %{symbol: "C32", strike: 30.48, price: 2.32, trades: 432}
-    |> build_call_option
+    evaluated = Enum.at(evaluated_calls, 0)
 
-    #OptionsEvaluator.evaluate_calls(call_options, stock, serie, capital)
+    assert evaluated.symbol       == "C27"
+    assert evaluated.price        == 4.45
+    assert evaluated.strike       == 27.48
+    assert evaluated.rate         == 1.82
+    assert evaluated.trades       == 31
+    assert evaluated.balance      == 13.61
+    assert evaluated.quantity     == 3_200
+    assert evaluated.stop_loss    == 26.98
+    assert evaluated.net_profit   == 1_819.00
+    assert evaluated.annual_rate  == 18.45
+    assert evaluated.real_capital == 99_936.00
   end
 
-  test "evluates put options" do
+  test "evaluates put options" do
   end
 
   def build_stock(attrs) do
