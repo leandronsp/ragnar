@@ -84,21 +84,28 @@ defmodule Ragnar.CallOptionsCalculator do
     balance  = balance(stock, option)
     fut_vol  = future_volatility(stock, serie)
     rem_days = remaining_days(serie)
-    score    = (rate / rem_days) + (balance / fut_vol)
 
-    case score do
-      x when x < 0 -> 0
-      y -> Float.round(y, 2)
+    cond do
+      rate > 0 && balance > 0 ->
+        a = :math.pow(balance, 0.98) / fut_vol
+        b = :math.pow(rate, 0.4) / rem_days
+        c = :math.pow(option.trades, 0.1) |> :math.log
+
+        (a + b + c)
+        |> :math.tanh
+      rate < 0 || balance < 0 -> -1.0
+
+      true -> -1.0
     end
   end
 
   def rating(score) do
     cond do
-      score > 2   -> "A"
-      score > 1   -> "B"
-      score > 0.3 -> "C"
-      score > 0   -> "D"
-      score == 0  -> "E"
+      score == 1  -> "A"
+      score > 0.8 -> "B"
+      score > 0.5 -> "C"
+      score > 0.2 -> "D"
+      score < 0.2 -> "E"
     end
   end
 

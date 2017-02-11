@@ -94,18 +94,10 @@ defmodule Ragnar.CallOptionsCalculatorTest do
 
   test "score/4" do
     stock  = %Stock{price: 31.23, vh63: 59.04}
-    option = %CallOption{strike: 27.48, price: 4.45}
+    option = %CallOption{strike: 27.48, price: 4.45, trades: 31}
     serie = %Serie{expires_at: Timex.today |> Timex.shift(days: 36)}
 
-    assert Calculator.score(100_000, stock, option, serie) == 0.45
-  end
-
-  test "rating/1" do
-    assert Calculator.rating(2.1) == "A"
-    assert Calculator.rating(1.1) == "B"
-    assert Calculator.rating(0.4) == "C"
-    assert Calculator.rating(0.1) == "D"
-    assert Calculator.rating(0.0) == "E"
+    assert Calculator.score(100_000, stock, option, serie) == 0.6419897073069813
   end
 
 end

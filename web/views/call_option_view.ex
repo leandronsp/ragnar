@@ -41,7 +41,8 @@ defmodule Ragnar.CallOptionView do
       remaining_days: call_option.remaining_days,
       rating: call_option.rating,
       capital: call_option.capital,
-      future_volatility: call_option.future_volatility
+      future_volatility: call_option.future_volatility,
+      score: call_option.score
     }
   end
 end
