@@ -9,6 +9,11 @@ defmodule Ragnar.CallOptionsCalculator do
     |> Timex.Comparable.diff(Timex.today, :days)
   end
 
+  def future_volatility(stock, serie) do
+    (stock.vh63 / 63) * remaining_days(serie)
+    |> Float.round(2)
+  end
+
   def rate(capital, stock, option) do
     (net_profit(capital, stock, option) / capital) * 100
     |> Float.round(2)
@@ -71,6 +76,29 @@ defmodule Ragnar.CallOptionsCalculator do
     case (profit - costs) > 0 do
       false -> 0.00
       true  -> (profit - costs) * 0.15 |> Float.round(2)
+    end
+  end
+
+  def score(capital, stock, option, serie) do
+    rate     = rate(capital, stock, option)
+    balance  = balance(stock, option)
+    fut_vol  = future_volatility(stock, serie)
+    rem_days = remaining_days(serie)
+    score    = (rate / rem_days) + (balance / fut_vol)
+
+    case score do
+      x when x < 0 -> 0
+      y -> Float.round(y, 2)
+    end
+  end
+
+  def rating(score) do
+    cond do
+      score > 2   -> "A"
+      score > 1   -> "B"
+      score > 0.3 -> "C"
+      score > 0   -> "D"
+      score == 0  -> "E"
     end
   end
 
