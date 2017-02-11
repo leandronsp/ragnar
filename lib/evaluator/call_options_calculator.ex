@@ -14,6 +14,11 @@ defmodule Ragnar.CallOptionsCalculator do
     |> Float.round(2)
   end
 
+  def annual_rate(capital, stock, option, serie) do
+    (rate(capital, stock, option) / remaining_days(serie)) * 365
+    |> Float.round(2)
+  end
+
   def real_capital(capital, stock) do
     quantity(capital, stock) * stock.price
     |> Float.round(2)
@@ -25,6 +30,20 @@ defmodule Ragnar.CallOptionsCalculator do
 
   def cost_price(stock, option) do
     stock.price - option.price
+  end
+
+  def cost_operation(capital, stock, option) do
+    cost_price(stock, option) * quantity(capital, stock)
+  end
+
+  def stop_loss(stock, option) do
+    cost_price(stock, option) + 0.2
+    |> Float.round(2)
+  end
+
+  def balance(stock, option) do
+    ((stock.price - stop_loss(stock, option)) / stock.price) * 100
+    |> Float.round(2)
   end
 
   def profit(:gross, capital, stock, option) do
