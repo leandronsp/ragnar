@@ -1,8 +1,6 @@
 require Logger
 
 defmodule Ragnar.BovespaFetcher do
-  alias Ragnar.{Stock, Serie, CallOption, PutOption}
-
   alias Ragnar.BovespaClient,            as: Client
   alias Ragnar.RepoDecorator,            as: RepoDecorator
   alias Ragnar.BovespaStockParser,       as: StockParser

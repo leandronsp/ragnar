@@ -2,6 +2,7 @@
   "certifi": {:hex, :certifi, "0.7.0", "861a57f3808f7eb0c2d1802afeaae0fa5de813b0df0979153cbafcd853ababaf", [:rebar3], []},
   "combine": {:hex, :combine, "0.9.6", "8d1034a127d4cbf6924c8a5010d3534d958085575fa4d9b878f200d79ac78335", [:mix], []},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], []},
+  "cors_plug": {:hex, :cors_plug, "1.2.1", "bbe1381a52e4a16e609cf3c4cbfde6884726a58b9a1a205db104dbdfc542f447", [:mix], [{:plug, "> 0.8.0", [hex: :plug, optional: false]}]},
   "cowboy": {:hex, :cowboy, "1.1.0", "d9637f0fe7f0727efc8d703a9cfc2cf9e67fd11c6f7a22d35be687e44441d734", [:rebar3], [{:cowlib, "~> 1.0.2", [hex: :cowlib, optional: false]}, {:ranch, "~> 1.2.0", [hex: :ranch, optional: false]}]},
   "cowlib": {:hex, :cowlib, "1.0.2", "9d769a1d062c9c3ac753096f868ca121e2730b9a377de23dec0f7e08b1df84ee", [:make], []},
   "crontab": {:hex, :crontab, "1.0.0", "7192d6f284be82c2a984b323f14a9e3c89eb88dc971a85c72a6f243677c7bc2d", [:mix], [{:ecto, "~> 1.0 or ~> 2.0 or ~> 2.1", [hex: :ecto, optional: true]}, {:timex, "~> 3.0", [hex: :timex, optional: false]}]},

@@ -33,6 +33,7 @@ defmodule Ragnar.Mixfile do
     [{:phoenix, "~> 1.2.1"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
+     {:cors_plug, "~> 1.2"},
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
      {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
