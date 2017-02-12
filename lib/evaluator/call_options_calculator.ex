@@ -87,9 +87,9 @@ defmodule Ragnar.CallOptionsCalculator do
 
     cond do
       rate > 0 && balance > 0 ->
-        a = :math.pow(balance, 0.98) / fut_vol
-        b = :math.pow(rate, 0.4) / rem_days
-        c = :math.pow(option.trades, 0.1) |> :math.log
+        a = :math.pow(balance / fut_vol, 0.98)
+        b =  :math.pow(rate / rem_days, 0.4)
+        c = :math.pow(option.trades, 0.08) |> :math.log
 
         (a + b + c)
         |> :math.tanh
@@ -101,11 +101,11 @@ defmodule Ragnar.CallOptionsCalculator do
 
   def rating(score) do
     cond do
-      score == 1  -> "A"
-      score > 0.8 -> "B"
-      score > 0.5 -> "C"
-      score > 0.2 -> "D"
-      score < 0.2 -> "E"
+      score > 0.95 -> "A"
+      score > 0.85 -> "B"
+      score > 0.60 -> "C"
+      score > 0.40 -> "D"
+      score < 0.40 -> "E"
     end
   end
 

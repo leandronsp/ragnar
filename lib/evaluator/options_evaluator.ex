@@ -6,7 +6,7 @@ defmodule Ragnar.OptionsEvaluator do
     options
     |> Enum.map(&evaluate_single_option_call(&1, stock, serie, capital))
     |> Enum.filter(&(&1.rate > 0 && &1.balance > 0))
-    |> Enum.sort_by(&(&1.score), &>=/2)
+    |> Enum.sort_by(&(&1.strike), &<=/2)
   end
 
   #### Private functions
