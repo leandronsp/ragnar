@@ -88,7 +88,7 @@ defmodule Ragnar.CallOptionsCalculator do
     cond do
       rate > 0 && balance > 0 ->
         a = :math.pow(balance / fut_vol, 0.98)
-        b =  :math.pow(rate / rem_days, 0.4)
+        b = :math.pow(rate / rem_days, 0.4)
         c = :math.pow(option.trades, 0.08) |> :math.log
 
         (a + b + c)
