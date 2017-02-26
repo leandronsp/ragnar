@@ -42,6 +42,7 @@ defmodule Ragnar.Mixfile do
      {:floki, "~> 0.13.1"},
      {:quantum, ">= 1.9.0"},
      {:mock, "~> 0.2.0", only: :test},
+     {:morphine, git: "git://github.com/leandronsp/morphine.git"},
      {:cowboy, "~> 1.0"}]
   end
 

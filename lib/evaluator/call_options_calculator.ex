@@ -87,25 +87,24 @@ defmodule Ragnar.CallOptionsCalculator do
 
     cond do
       rate > 0 && balance > 0 ->
-        a = :math.pow(balance / fut_vol, 0.98)
-        b = :math.pow(rate / rem_days, 0.4)
-        c = :math.pow(option.trades, 0.08) |> :math.log
+        a = balance / fut_vol
+        b = rate / rem_days
+        c = :math.log(option.trades) / :math.log(10)
 
-        (a + b + c)
-        |> :math.tanh
-      rate < 0 || balance < 0 -> -1.0
-
-      true -> -1.0
+        Ragnar.NeuralNetwork.think([[a, b, c]])
+      true -> 0
     end
   end
 
+  def sigmoid(calculation), do: 1 / (1 + :math.exp(-calculation))
+
   def rating(score) do
     cond do
-      score > 0.95 -> "A"
-      score > 0.85 -> "B"
-      score > 0.60 -> "C"
-      score > 0.40 -> "D"
-      score < 0.40 -> "E"
+      score > 0.80 -> "A"
+      score > 0.60 -> "B"
+      score > 0.40 -> "C"
+      score > 0.20 -> "D"
+      score < 0.20 -> "E"
     end
   end
 

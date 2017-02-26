@@ -14,12 +14,16 @@ defmodule Ragnar do
       supervisor(Ragnar.Endpoint, []),
       # Start your own worker by calling: Ragnar.Worker.start_link(arg1, arg2, arg3)
       # worker(Ragnar.Worker, [arg1, arg2, arg3]),
+      worker(Morphine.NeuralNetwork, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Ragnar.Supervisor]
-    Supervisor.start_link(children, opts)
+    sup  = Supervisor.start_link(children, opts)
+
+    Ragnar.NeuralNetwork.setup!
+    sup
   end
 
   # Tell Phoenix to update the endpoint configuration
