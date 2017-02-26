@@ -4,7 +4,9 @@ The backend for [Taxazeiro](https://sonataxa.tech). Built on top of Phoenix/Elix
 
 ### Description
 Ragnar parses and exposes BMF&Bovespa data-related.
-API for getting stocks listed at Bovespa, and their related calls/puts. Its core accounts with an algorithm to score options in order to learn and predict calls/puts to operate.
+API for getting stocks listed at Bovespa and their related calls/puts. 
+
+Its core uses [Morphine](https://github.com/leandronsp/morphine), a Neural Network used to learn and predict scores based on share rate, balance, volatiliy and trades. 
 
 Some examples of API endpoints:
 
