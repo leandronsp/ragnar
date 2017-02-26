@@ -12,9 +12,9 @@ defmodule Ragnar.NeuralNetwork do
     Network.setup_layers(pid(), [{4, 3}, {1, 4}])
   end
 
-  def train(inputs, target) do
+  def train(inputs, target, iterations \\ 1000) do
     targetz = ExAlgebra.Matrix.transpose(target)
-    Network.learn(pid(), inputs, targetz, 1000)
+    Network.learn(pid(), inputs, targetz, iterations)
   end
 
   def think(inputs) do

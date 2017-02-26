@@ -87,9 +87,9 @@ defmodule Ragnar.CallOptionsCalculator do
 
     cond do
       rate > 0 && balance > 0 ->
-        a = balance / fut_vol
-        b = rate / rem_days
-        c = :math.log(option.trades) / :math.log(10)
+        a = :math.log(option.trades) / :math.log(10)
+        b = balance / fut_vol
+        c = rate / rem_days
 
         Ragnar.NeuralNetwork.think([[a, b, c]])
       true -> 0
