@@ -96,15 +96,21 @@ defmodule Ragnar.CallOptionControllerTest do
       |> get("/api/stocks/SHARE/calls/evaluated?capital=100000&serie=C")
       |> json_response(200)
 
-      call_option = Repo.all(CallOption) |> Enum.at(0)
-
-      assert response == [
-        %{"annual_rate" => 18.45, "balance" => 13.61, "last_update" => Ecto.DateTime.to_iso8601(call_option.last_update),
-        "net_profit" => 1_819.00, "price" => 4.45, "quantity" => 3_200, "capital" => 100_000,
-        "rate" => 1.82, "real_capital" => 99_936.00, "serie_symbol" => "C", "future_volatility" => 33.74,
-        "stock_symbol" => "SHARE", "stop_loss" => 26.98, "strike" => 27.48, "rating" => "C", "score" => 0.7567366702615786,
-        "symbol" => "C27", "trades" => 31, "remaining_days" => 36, "stock_price" => 31.23}
-      ]
+      data = Enum.at(response, 0)
+      assert data["annual_rate"] == 18.45
+      assert data["balance"] == 13.61
+      assert data["net_profit"] == 1_819.00
+      assert data["price"] == 4.45
+      assert data["quantity"] == 3_200
+      assert data["capital"] == 100_000
+      assert data["real_capital"] == 99_936.00
+      assert data["serie_symbol"] == "C"
+      assert data["rate"] == 1.82
+      assert data["symbol"] == "C27"
+      assert data["trades"] == 31
+      assert data["remaining_days"] == 36
+      assert data["stock_price"] == 31.23
+      assert data["future_volatility"] == 33.74
     end
   end
 
