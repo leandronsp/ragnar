@@ -6,6 +6,7 @@ defmodule Ragnar.BovespaCallOptionsParser do
 
   def parse_many(html) do
     stock = StockParser.parse_single(html)
+
     Floki.find(html, "table.gregas tbody tr")
     |> Enum.map(&parse_single(&1, stock))
   end
@@ -14,7 +15,8 @@ defmodule Ragnar.BovespaCallOptionsParser do
 
   defp parse_single(row, stock) do
     cells = Floki.find(row, "td")
-    attrs = %{
+
+    build_changeset(%{
       symbol:       Enum.at(cells, 0) |> parse_raw_value,
       strike:       Enum.at(cells, 1) |> parse_raw_value,
       price:        Enum.at(cells, 2) |> parse_raw_value,
@@ -22,9 +24,7 @@ defmodule Ragnar.BovespaCallOptionsParser do
       serie_symbol: Enum.at(cells, 0) |> parse_raw_value |> String.at(0),
       stock_symbol: stock.changes.symbol,
       last_update:  stock.changes.last_update
-    }
-
-    build_changeset(attrs)
+    })
   end
 
   defp build_changeset(attrs) do

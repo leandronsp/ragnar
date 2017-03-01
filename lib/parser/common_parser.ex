@@ -2,11 +2,8 @@ defmodule Ragnar.CommonParser do
   defmacro __using__(_) do
 
     quote do
-      def parse_raw_value(value) when value == nil, do: value
-
-      def parse_raw_value(value) do
-        Floki.text(value)
-      end
+      def parse_raw_value(nil), do: nil
+      def parse_raw_value(value), do: Floki.text(value)
 
       def parse_float_value(value) do
         String.replace(value, ",", ".")
@@ -15,8 +12,7 @@ defmodule Ragnar.CommonParser do
       end
 
       def parse_int_value(value) do
-        Integer.parse(value)
-        |> elem(0)
+        Integer.parse(value) |> elem(0)
       end
 
       def parse_date_value(value, format \\ "%d/%m/%Y", options \\ %{}) do
@@ -29,12 +25,14 @@ defmodule Ragnar.CommonParser do
       end
 
       def parse_datetime_value(value) do
-        Timex.parse!(value, "%d/%m %H:%M", :strftime)
+        value
+        |> Timex.parse!("%d/%m %H:%M", :strftime)
         |> shift_date_to_current_year
       end
 
       def shift_date_to_current_year(date) do
-        Timex.shift(date, years: Timex.now.year)
+        date
+        |> Timex.shift(years: Timex.now.year)
       end
     end
 
