@@ -16,7 +16,12 @@ Some examples of API endpoints:
 	GET /stocks/{share}/puts?serie=P
 
 	GET /stocks/{share}/calls/evaluated?capital=10000&serie=A
-	(soon) GET /stocks/{share}/puts/evaluated?capital=10000&serie=A
+	GET /stocks/{share}/puts/evaluated?capital=10000&serie=A
+	
+	### Training the neural network!
+	POST /network/train
+	inputs: [[0, 1, 0], [0, 0, 1], [0, 0, 0]]
+	targets: [[1, 0, 0]]
 
 
 ### License
