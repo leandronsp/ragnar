@@ -16,5 +16,8 @@ defmodule Ragnar.Router do
     get "/stocks/:share/calls/evaluated", CallOptionController, :evaluated
 
     get "/stocks/:share/puts", PutOptionController, :index
+
+    post "/network/train", NeuralNetworkController, :train
+    options "/network/train", NeuralNetworkController, :options
   end
 end

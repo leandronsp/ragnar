@@ -2,6 +2,8 @@ defmodule Ragnar.CallOptionControllerTest do
   use   Ragnar.ConnCase
   alias Ragnar.{Stock, Serie, CallOption}
 
+  import Mock
+
   def last_update(hours) do
     Timex.now |> Timex.shift(hours: hours) |> Ecto.DateTime.cast!
   end
@@ -83,34 +85,36 @@ defmodule Ragnar.CallOptionControllerTest do
 
   describe "calls_for_operation/2" do
     test "calculates and returns the best options to do operation given a capital" do
-      %{expires_at: Timex.today |> Timex.shift(days: 36)}
-      |> build_serie
+      with_mock Ragnar.NeuralNetwork, [think: fn(_) -> 0.42 end] do
+        %{expires_at: Timex.today |> Timex.shift(days: 36)}
+        |> build_serie
 
-      %{price: 31.23, variation: 6.55, vh63: 59.04, vh63_ibov: 24.93}
-      |> build_stock
+        %{price: 31.23, variation: 6.55, vh63: 59.04, vh63_ibov: 24.93}
+        |> build_stock
 
-      %{symbol: "C27", strike: 27.48, price: 4.45, trades: 31}
-      |> build_call_option
+        %{symbol: "C27", strike: 27.48, price: 4.45, trades: 31}
+        |> build_call_option
 
-      response = build_conn()
-      |> get("/api/stocks/SHARE/calls/evaluated?capital=100000&serie=C")
-      |> json_response(200)
+        response = build_conn()
+        |> get("/api/stocks/SHARE/calls/evaluated?capital=100000&serie=C")
+        |> json_response(200)
 
-      data = Enum.at(response, 0)
-      assert data["annual_rate"] == 18.45
-      assert data["balance"] == 13.61
-      assert data["net_profit"] == 1_819.00
-      assert data["price"] == 4.45
-      assert data["quantity"] == 3_200
-      assert data["capital"] == 100_000
-      assert data["real_capital"] == 99_936.00
-      assert data["serie_symbol"] == "C"
-      assert data["rate"] == 1.82
-      assert data["symbol"] == "C27"
-      assert data["trades"] == 31
-      assert data["remaining_days"] == 36
-      assert data["stock_price"] == 31.23
-      assert data["future_volatility"] == 33.74
+        data = Enum.at(response, 0)
+        assert data["annual_rate"] == 18.45
+        assert data["balance"] == 13.61
+        assert data["net_profit"] == 1_819.00
+        assert data["price"] == 4.45
+        assert data["quantity"] == 3_200
+        assert data["capital"] == 100_000
+        assert data["real_capital"] == 99_936.00
+        assert data["serie_symbol"] == "C"
+        assert data["rate"] == 1.82
+        assert data["symbol"] == "C27"
+        assert data["trades"] == 31
+        assert data["remaining_days"] == 36
+        assert data["stock_price"] == 31.23
+        assert data["future_volatility"] == 33.74
+      end
     end
   end
 
