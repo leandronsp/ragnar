@@ -20,7 +20,7 @@ defmodule Ragnar.NeuralNetwork do
   end
 
   def train(inputs, target, iterations \\ 100000) do
-    targetz = ExAlgebra.Matrix.transpose(target)
+    targetz = Morphine.Calc.Matrix.transpose(target)
     Network.learn(pid(), inputs, targetz, iterations)
 
     save_snapshot!()
