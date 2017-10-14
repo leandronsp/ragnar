@@ -1,5 +1,5 @@
 defmodule Ragnar.SerieControllerTest do
-  use   Ragnar.ConnCase
+  use   RagnarWeb.ConnCase
   alias Ragnar.Serie
 
   def expires_in(days) do

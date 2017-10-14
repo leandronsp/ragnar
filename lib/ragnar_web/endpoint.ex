@@ -1,7 +1,7 @@
-defmodule Ragnar.Endpoint do
+defmodule RagnarWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :ragnar
 
-  socket "/socket", Ragnar.UserSocket
+  socket "/socket", RagnarWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -36,5 +36,5 @@ defmodule Ragnar.Endpoint do
     key: "_ragnar_key",
     signing_salt: "ou4HBepa"
 
-  plug Ragnar.Router
+  plug RagnarWeb.Router
 end

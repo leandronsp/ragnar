@@ -1,8 +1,8 @@
-defmodule Ragnar.UserSocket do
+defmodule RagnarWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Ragnar.RoomChannel
+  # channel "room:*", RagnarWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -30,7 +30,7 @@ defmodule Ragnar.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     Ragnar.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
+  #     RagnarWeb.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil

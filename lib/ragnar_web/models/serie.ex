@@ -1,5 +1,5 @@
 defmodule Ragnar.Serie do
-  use Ragnar.Web, :model
+  use RagnarWeb, :model
 
   schema "series" do
     field :symbol, :string

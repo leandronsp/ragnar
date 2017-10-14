@@ -1,6 +1,6 @@
-defmodule Ragnar.NeuralNetworkController do
+defmodule RagnarWeb.NeuralNetworkController do
 
-  use Ragnar.Web, :controller
+  use RagnarWeb, :controller
 
   def train(conn, params) do
     inputs  = params["inputs"]

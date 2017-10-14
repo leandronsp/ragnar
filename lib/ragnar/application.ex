@@ -1,4 +1,4 @@
-defmodule Ragnar do
+defmodule Ragnar.Application do
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
@@ -11,7 +11,7 @@ defmodule Ragnar do
       # Start the Ecto repository
       supervisor(Ragnar.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Ragnar.Endpoint, []),
+      supervisor(RagnarWeb.Endpoint, []),
       # Start your own worker by calling: Ragnar.Worker.start_link(arg1, arg2, arg3)
       # worker(Ragnar.Worker, [arg1, arg2, arg3]),
       worker(Morphine.NeuralNetwork, [])

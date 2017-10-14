@@ -1,5 +1,5 @@
 defmodule Ragnar.BovespaFetcherTest do
-  use Ragnar.ConnCase
+  use RagnarWeb.ConnCase
 
   alias Ragnar.{Stock, Serie, CallOption, PutOption}
   alias Ragnar.BovespaFetcher, as: Fetcher

@@ -1,4 +1,4 @@
-defmodule Ragnar.ErrorHelpers do
+defmodule RagnarWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -21,9 +21,9 @@ defmodule Ragnar.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Ragnar.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(RagnarWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Ragnar.Gettext, "errors", msg, opts)
+      Gettext.dgettext(RagnarWeb.Gettext, "errors", msg, opts)
     end
   end
 end

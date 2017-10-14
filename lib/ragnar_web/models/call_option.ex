@@ -1,5 +1,5 @@
 defmodule Ragnar.CallOption do
-  use Ragnar.Web, :model
+  use RagnarWeb, :model
   import Ecto.Query, only: [from: 2]
 
   schema "call_options" do

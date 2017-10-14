@@ -1,4 +1,4 @@
-defmodule Ragnar.ConnCase do
+defmodule RagnarWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule Ragnar.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Ragnar.Router.Helpers
+      import RagnarWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Ragnar.Endpoint
+      @endpoint RagnarWeb.Endpoint
     end
   end
 

@@ -1,5 +1,5 @@
 defmodule Ragnar.OptionsEvaluatorTest do
-  use Ragnar.ConnCase
+  use RagnarWeb.ConnCase
 
   alias Ragnar.{Stock, CallOption, Serie}
   alias Ragnar.OptionsEvaluator, as: Evaluator

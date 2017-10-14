@@ -1,5 +1,5 @@
 defmodule Ragnar.Stock do
-  use Ragnar.Web, :model
+  use RagnarWeb, :model
 
   schema "stocks" do
     field :symbol, :string

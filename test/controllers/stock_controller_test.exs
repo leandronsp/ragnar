@@ -1,5 +1,5 @@
 defmodule Ragnar.StockControllerTest do
-  use   Ragnar.ConnCase
+  use   RagnarWeb.ConnCase
   alias Ragnar.Stock
 
   def last_update(hours) do

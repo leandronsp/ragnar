@@ -1,5 +1,5 @@
 defmodule Ragnar.RepoDecoratorTest do
-  use Ragnar.ConnCase
+  use RagnarWeb.ConnCase
   alias Ragnar.{Repo, RepoDecorator, Stock}
 
   @stock_attrs %{ symbol: "PETR4", last_update: Timex.now |> Ecto.DateTime.cast!, price: 15.45, variation: 3.65, vh63: 85.01, vh63_ibov: 34.00 }

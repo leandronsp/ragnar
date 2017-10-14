@@ -1,8 +1,8 @@
-defmodule Ragnar.StockView do
-  use Ragnar.Web, :view
+defmodule RagnarWeb.StockView do
+  use RagnarWeb, :view
 
   def render("stocks.json", %{stocks: stocks}) do
-    render_many(stocks, Ragnar.StockView, "stock.json")
+    render_many(stocks, RagnarWeb.StockView, "stock.json")
   end
 
   def render("stock.json", %{stock: stock}) do

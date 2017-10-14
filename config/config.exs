@@ -10,10 +10,10 @@ config :ragnar,
   ecto_repos: [Ragnar.Repo]
 
 # Configures the endpoint
-config :ragnar, Ragnar.Endpoint,
+config :ragnar, RagnarWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "SZsv1Rgy4FuTPc/u1Qj/3Tq0yyFWOqofk7MvX4GtZZ/WFXeoeafFLlzplbgoZdTP",
-  render_errors: [view: Ragnar.ErrorView, accepts: ~w(json)],
+  render_errors: [view: RagnarWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Ragnar.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

@@ -1,5 +1,5 @@
-defmodule Ragnar.PutOptionController do
-  use Ragnar.Web, :controller
+defmodule RagnarWeb.PutOptionController do
+  use RagnarWeb, :controller
   alias Ragnar.{Repo, PutOption}
 
   def index(conn, params) do

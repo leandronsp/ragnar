@@ -1,8 +1,8 @@
-defmodule Ragnar.PutOptionView do
-  use Ragnar.Web, :view
+defmodule RagnarWeb.PutOptionView do
+  use RagnarWeb, :view
 
   def render("put_options.json", %{put_options: put_options}) do
-    render_many(put_options, Ragnar.PutOptionView, "put_option.json")
+    render_many(put_options, RagnarWeb.PutOptionView, "put_option.json")
   end
 
   def render("put_option.json", %{put_option: put_option}) do

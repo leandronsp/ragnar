@@ -1,12 +1,12 @@
-defmodule Ragnar.Router do
-  use Ragnar.Web, :router
+defmodule RagnarWeb.Router do
+  use RagnarWeb, :router
 
   pipeline :api do
     plug CORSPlug, [origin: "http://localhost:9000"]
     plug :accepts, ["json"]
   end
 
-  scope "/api", Ragnar do
+  scope "/api", RagnarWeb do
     pipe_through :api
 
     get "/series", SerieController, :index

@@ -1,5 +1,5 @@
 defmodule Ragnar.PutOptionControllerTest do
-  use   Ragnar.ConnCase
+  use   RagnarWeb.ConnCase
   alias Ragnar.PutOption
 
   def last_update(hours) do

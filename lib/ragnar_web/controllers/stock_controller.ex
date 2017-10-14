@@ -1,5 +1,5 @@
-defmodule Ragnar.StockController do
-  use Ragnar.Web, :controller
+defmodule RagnarWeb.StockController do
+  use RagnarWeb, :controller
   alias Ragnar.{Repo, Stock}
 
   def index(conn, _params) do

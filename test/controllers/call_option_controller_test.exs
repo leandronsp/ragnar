@@ -1,5 +1,5 @@
 defmodule Ragnar.CallOptionControllerTest do
-  use   Ragnar.ConnCase
+  use   RagnarWeb.ConnCase
   alias Ragnar.{Stock, Serie, CallOption}
 
   import Mock

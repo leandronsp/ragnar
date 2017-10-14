@@ -1,5 +1,5 @@
 defmodule Ragnar.PutOption do
-  use Ragnar.Web, :model
+  use RagnarWeb, :model
   import Ecto.Query, only: [from: 2]
 
   schema "put_options" do

@@ -1,4 +1,4 @@
-defmodule Ragnar.Gettext do
+defmodule RagnarWeb.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 

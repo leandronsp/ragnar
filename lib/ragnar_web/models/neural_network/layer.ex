@@ -1,5 +1,5 @@
 defmodule Ragnar.NeuralNetwork.Layer do
-  use Ragnar.Web, :model
+  use RagnarWeb, :model
 
   schema "neural_network_layers" do
     field :weights, {:array, {:array, :float}}

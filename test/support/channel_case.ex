@@ -1,4 +1,4 @@
-defmodule Ragnar.ChannelCase do
+defmodule RagnarWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule Ragnar.ChannelCase do
 
 
       # The default endpoint for testing
-      @endpoint Ragnar.Endpoint
+      @endpoint RagnarWeb.Endpoint
     end
   end
 

@@ -1,5 +1,5 @@
-defmodule Ragnar.ErrorView do
-  use Ragnar.Web, :view
+defmodule RagnarWeb.ErrorView do
+  use RagnarWeb, :view
 
   def render("404.json", _assigns) do
     %{errors: %{detail: "Page not found"}}

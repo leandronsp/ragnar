@@ -1,9 +1,9 @@
-defmodule Ragnar.CallOptionController do
+defmodule RagnarWeb.CallOptionController do
   alias Ragnar.{Stock, Serie, CallOption}
   alias Ragnar.Repo
   alias Ragnar.OptionsEvaluator, as: Evaluator
 
-  use Ragnar.Web, :controller
+  use RagnarWeb, :controller
 
   def index(conn, params) do
     results = CallOption

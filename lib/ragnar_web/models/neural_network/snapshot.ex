@@ -1,5 +1,5 @@
 defmodule Ragnar.NeuralNetwork.Snapshot do
-  use Ragnar.Web, :model
+  use RagnarWeb, :model
 
   schema "neural_network_snapshots" do
     has_many :layers, Ragnar.NeuralNetwork.Layer
