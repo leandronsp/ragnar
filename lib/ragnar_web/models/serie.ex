@@ -16,4 +16,8 @@ defmodule Ragnar.Serie do
     |> cast(params, [:symbol, :expires_at])
     |> validate_required([:symbol, :expires_at])
   end
+
+  def current(query) do
+    from co in query, where: co.expires_at > from_now(0, "day")
+  end
 end

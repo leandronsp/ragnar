@@ -3,7 +3,10 @@ defmodule RagnarWeb.SerieController do
   alias Ragnar.{Repo, Serie}
 
   def index(conn, _params) do
-    series = Repo.all(Serie)
-    render conn, "series.json", series: series
+    results = Serie
+    |> Serie.current()
+    |> Repo.all
+
+    render conn, "series.json", series: results
   end
 end
