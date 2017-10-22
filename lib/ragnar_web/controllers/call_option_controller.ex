@@ -13,6 +13,9 @@ defmodule RagnarWeb.CallOptionController do
     render conn, "call_options.json", call_options: results
   end
 
+  def evaluated(conn, params = %{"capital" => "0"}), do: index(conn, params)
+  def evaluated(conn, params = %{"capital" => ""}),  do: index(conn, params)
+
   def evaluated(conn, params) do
     stock   = Repo.get_by!(Stock, symbol: params["share"])
     serie   = Repo.get_by!(Serie, symbol: params["serie"])
