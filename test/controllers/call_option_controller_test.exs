@@ -95,9 +95,14 @@ defmodule Ragnar.CallOptionControllerTest do
         %{symbol: "C27", strike: 27.48, price: 4.45, trades: 31}
         |> build_call_option
 
+        %{symbol: "C28", strike: 28.42, price: 3.90, trades: 312, last_update: last_update(-25)}
+        |> build_call_option
+
         response = build_conn()
         |> get("/api/stocks/SHARE/calls/evaluated?capital=100000&serie=C")
         |> json_response(200)
+
+        assert length(response) == 1
 
         data = Enum.at(response, 0)
         assert data["annual_rate"] == 18.45

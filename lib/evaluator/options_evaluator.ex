@@ -5,7 +5,7 @@ defmodule Ragnar.OptionsEvaluator do
   def evaluate_calls(options, stock, serie, capital) do
     options
     |> Enum.map(&evaluate_single_option_call(&1, stock, serie, capital))
-    |> Enum.filter(&(&1.rate > 0 && &1.balance > 0))
+    |> Enum.filter(&(&1.rate > 0 && &1.balance > 0 && Ecto.DateTime.dump(&1.last_update) |> elem(1) |> Timex.after?(Timex.today)))
     |> Enum.sort_by(&(&1.strike), &<=/2)
   end
 
