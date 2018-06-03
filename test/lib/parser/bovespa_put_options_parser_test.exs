@@ -13,7 +13,7 @@ defmodule Ragnar.BovespaPutOptionsParserTest do
     model = List.first(options).changes
 
     assert model.symbol       == "N19 E"
-    assert model.last_update  == ~N[2017-02-03 18:12:00] |> Ecto.DateTime.cast!
+    assert model.last_update  == ~N[2018-02-03 18:12:00] |> Ecto.DateTime.cast!
     assert model.strike       == 9.7
     assert model.price        == 0.01
     assert model.serie_symbol == "N"
@@ -23,7 +23,7 @@ defmodule Ragnar.BovespaPutOptionsParserTest do
     model = List.last(options).changes
 
     assert model.symbol       == "P45 E"
-    assert model.last_update  == ~N[2017-02-03 18:12:00] |> Ecto.DateTime.cast!
+    assert model.last_update  == ~N[2018-02-03 18:12:00] |> Ecto.DateTime.cast!
     assert model.strike       == 15.5
     assert model.price        == 1.18
     assert model.serie_symbol == "P"

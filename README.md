@@ -46,10 +46,16 @@ This app uses docker for containerization:
 	=> iex -S mix
 	=> Ragnar.BovespaFetcher.fetch_many!
 
+	# happy TDD!
+	docker-compose run tdd
+
 	# stop everything
 	docker-compose down
 
 By default the database will write data to the local machine at `$(pwd)/.pgdata`.
+
+### Testing
+TDD can be achieved either running `mix test.watch` or `docker-compose run tdd`.
 
 ### License
 Ragnar is released under the [MIT License](https://opensource.org/licenses/MIT)

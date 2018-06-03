@@ -38,7 +38,7 @@ defmodule Ragnar.Mixfile do
      {:cors_plug, "~> 1.2"},
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
-     {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
+     {:mix_test_watch, "~> 0.3", only: [:dev, :test], runtime: false},
      {:timex, "~> 3.1.6"},
      {:httpoison, "~> 0.10.0"},
      {:floki, "~> 0.13.1"},
