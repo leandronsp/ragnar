@@ -25,5 +25,6 @@ config :phoenix, :stacktrace_depth, 20
 config :ragnar, Ragnar.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "ragnar_dev",
-  hostname: "localhost",
+  username: "ragnar",
+  hostname: System.get_env("PG_HOST") || "localhost",
   pool_size: 10

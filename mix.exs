@@ -45,7 +45,9 @@ defmodule Ragnar.Mixfile do
      {:quantum, ">= 1.9.0"},
      {:mock, "~> 0.2.0", only: :test},
      {:morphine, git: "git://github.com/leandronsp/morphine.git"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:distillery, "~> 1.5", runtime: false}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

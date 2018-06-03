@@ -28,6 +28,28 @@ Some examples of API endpoints:
 	inputs: [[0, 1, 0], [0, 0, 1], [0, 0, 0]]
 	targets: [[1, 0, 0]]
 
+### Stack
+This app was tested using Elixir 1.5+ and Postgres 9.x. There are apparent issues
+with Ecto when tried to upgrade to Postgres 10.
+
+### Docker usage
+This app uses docker for containerization:
+
+	# builds the web app and db container
+	docker-compose build
+
+	# starts up all containers and listent to http://localhost:4000
+	docker-compose up
+
+	# running commands inside web container (populate database)
+	docker exec -it ragnar_web_1 bash
+	=> iex -S mix
+	=> Ragnar.BovespaFetcher.fetch_many!
+
+	# stop everything
+	docker-compose down
+
+By default the database will write data to the local machine at `$(pwd)/.pgdata`.
 
 ### License
 Ragnar is released under the [MIT License](https://opensource.org/licenses/MIT)

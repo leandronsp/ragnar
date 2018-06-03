@@ -13,5 +13,6 @@ config :logger, level: :warn
 config :ragnar, Ragnar.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "ragnar_test",
-  hostname: "localhost",
+  username: "ragnar",
+  hostname: System.get_env("PG_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
