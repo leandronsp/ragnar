@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ragnar-db-service
+  labels:
+    app: ragnar-db-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: ragnar-db
+  ports:
+    - port: 5432

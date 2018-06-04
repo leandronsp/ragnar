@@ -35,19 +35,19 @@ with Ecto when tried to upgrade to Postgres 10.
 ### Docker usage
 This app uses docker for containerization:
 
-	# builds the web app and db container
-	docker-compose build
+	# builds the api and db container
+	docker-compose build api
 
-	# starts up all containers and listent to http://localhost:4000
-	docker-compose up
+	# starts api container and listens to http://localhost:4000
+	docker-compose up api
 
-	# running commands inside web container (populate database)
-	docker exec -it ragnar_web_1 bash
+	# running commands inside api container (populate database)
+	docker exec -it ragnar-api bash
 	=> iex -S mix
 	=> Ragnar.BovespaFetcher.fetch_many!
 
 	# happy TDD!
-	docker-compose run tdd
+	docker-compose build tdd && docker-compose run tdd
 
 	# stop everything
 	docker-compose down
@@ -56,6 +56,23 @@ By default the database will write data to the local machine at `$(pwd)/.pgdata`
 
 ### Testing
 TDD can be achieved either running `mix test.watch` or `docker-compose run tdd`.
+
+Running under K8s
+----------
+This app provides capabilities for deployments  on K8s using Docker containers.
+
+	# creates pods and services
+	kubectl create -f k8s/k8s-db-config.yml
+	kubectl create -f k8s/k8s-db.yml
+	kubectl create -f k8s/k8s-db-service.yml
+	kubectl create -f k8s/k8s-app-pod.yml
+	kubectl create -f k8s/k8s-app-service.yml
+
+	# check dashboard using MiniKube
+	minikube dashboard
+
+	# print URL
+	minikube service ragnar-service --url
 
 ### License
 Ragnar is released under the [MIT License](https://opensource.org/licenses/MIT)

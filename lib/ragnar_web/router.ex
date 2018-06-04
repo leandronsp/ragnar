@@ -2,7 +2,7 @@ defmodule RagnarWeb.Router do
   use RagnarWeb, :router
 
   pipeline :api do
-    plug CORSPlug, origin: ["http://localhost:9000", "http://localhost:8080"]
+    plug CORSPlug, origin: "*"
     plug :accepts, ["json"]
   end
 

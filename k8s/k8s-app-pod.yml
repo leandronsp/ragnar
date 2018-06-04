@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ragnar-deployment
+  labels:
+    app: ragnar-pod
+spec:
+  selector:
+    matchLabels:
+      app: ragnar-pod
+  template:
+    metadata:
+      labels:
+        app: ragnar-pod
+    spec:
+      containers:
+        - name: ragnar-api
+          image: leandronsp/ragnar-api
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PG_HOST
+              value: ragnar-db-service
+            - name: MIX_ENV
+              value: dev

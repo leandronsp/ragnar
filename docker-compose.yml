@@ -1,9 +1,11 @@
 version: "3"
 services:
-  web:
+  api:
     build:
       dockerfile: ./app.dockerfile
       context: .
+    container_name: ragnar-api
+    image: leandronsp/ragnar-api
     ports:
       - "4000:4000"
     command: >

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ragnar-statefulset
+  labels:
+    app: ragnar-db
+spec:
+  selector:
+    matchLabels:
+      app: ragnar-db
+  serviceName: ragnar-db-service
+  template:
+    metadata:
+      labels:
+        app: ragnar-db
+    spec:
+      containers:
+        - name: ragnar-db
+          image: postgres:9.3
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: volume-postgres
+              mountPath: /var/lib/postgres
+          env:
+            - name: POSTGRES_USER
+              value: ragnar
+      volumes:
+        - name: volume-postgres
+          persistentVolumeClaim:
+            claimName: volume-postgres-config
